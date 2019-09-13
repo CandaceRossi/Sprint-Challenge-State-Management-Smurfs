@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import "./App.css";
 import SmurfForm from "./SmurfForm";
 import Smurfs from "./Smurfs";
@@ -10,14 +10,16 @@ const App = ({ state }) => {
       <h1>SMURFS! 2.0 W/ Redux</h1>
       <div>Welcome to your state management version of Smurfs!</div>
       <SmurfForm state={state} />
-      <Smurfs store={state.store} />
+      <Smurfs state={state} />
     </div>
   );
 };
 
 const mapStateToProps = state => {
   return {
-    state: state
+    name: state.name,
+    age: state.age,
+    height: state.height
   };
 };
 export default connect(

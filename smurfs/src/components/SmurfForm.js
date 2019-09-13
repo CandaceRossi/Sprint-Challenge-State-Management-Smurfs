@@ -19,17 +19,29 @@ const SmurfForm = props => {
       <form onSubmit={handleSubmit}>
         <input
           type="text"
-          name="Smurf"
+          placeholder="Smurf Name"
+          name="SmurfName"
           value={input}
           onChange={handleChanges}
         />
-        <button
-          onClick={() => props.addFeatureAC(props.feature)}
-          className="button"
-        >
-          Add
+        <input
+          type="text"
+          placeholder="Smurf Age"
+          name="SmurfAge"
+          value={input}
+          onChange={handleChanges}
+        />
+        <input
+          type="text"
+          placeholder="Smurf Height"
+          name="SmurfHeight"
+          value={input}
+          onChange={handleChanges}
+        />
+        <button onClick={() => props.addFeatureAC(handleSubmit)}>
+          Add Smurf
         </button>
-        {props.feature.name} {props.feature.age} {props.feature.height}
+        {props.name} {props.age} {props.height}
       </form>
     </div>
   );

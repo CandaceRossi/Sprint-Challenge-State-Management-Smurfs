@@ -5,7 +5,7 @@ import {
   ADD_FEATURE
 } from "../store/actions";
 
-const initialState = {
+export const initialState = {
   smurfs: [
     {
       name: "Brainey",
@@ -21,21 +21,29 @@ export const reducer = (state = initialState, action) => {
     case FETCHING_SMURFS_START:
       return {
         ...state,
-        name: action.payload.name,
-        age: action.payload.age,
-        height: action.payload.height,
-        id: action.payload.id
+        smurfs: [
+          {
+            name: action.payload.name,
+            age: action.payload.age,
+            height: action.payload.height,
+            id: action.payload.id
+          }
+        ]
       };
 
     case FETCHING_SMURFS_SUCCESS:
       return {
         ...state,
         isFetching: false,
-        name: action.payload.name,
-        age: action.payload.age,
-        height: action.payload.height,
-        id: action.payload.id,
-        error: ""
+        error: "",
+        smurfs: [
+          {
+            name: action.payload,
+            age: action.payload,
+            height: action.payload,
+            id: action.payload
+          }
+        ]
       };
     case FETCHING_SMURFS_FAILURE:
       return {
@@ -47,7 +55,14 @@ export const reducer = (state = initialState, action) => {
     case ADD_FEATURE:
       return {
         ...state,
-        smurfs: [...state.name, ...state.age, ...state.height, action.payload]
+        smurfs: [
+          {
+            name: action.payload,
+            age: action.payload,
+            height: action.payload,
+            id: action.payload
+          }
+        ]
       };
 
     default:
