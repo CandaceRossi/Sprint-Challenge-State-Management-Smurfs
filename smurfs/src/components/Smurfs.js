@@ -1,22 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Smurf from "./Smurf";
 import { connect } from "react-redux";
-import {
-  FETCHING_SMURFS_START,
-  FETCHING_SMURFS_SUCCESS
-} from "../store/actions";
+import { getSmurfs } from "../store/actions";
 
 const Smurfs = props => {
+  useEffect(() => {
+    props.getSmurfs();
+  }, [props.getSmurfs]);
+  console.log("the smurfs are here", props.smurfs);
   return (
     <div className="Smurfs">
       <h4>New Smurf Added:</h4>
-      <Smurf key={props.id} feature={props} />
+      {props.smurfs.map(feature => {
+        return (
+          <Smurf
+            key={feature.id}
+            name={feature.name}
+            age={feature.age}
+            height={feature.height}
+          />
+        );
+      })}
       <p>Nice looking Smurf!</p>
     </div>
   );
 };
-
+const mapStateToProps = state => {
+  return {
+    smurfs: state.smurfs
+  };
+};
 export default connect(
-  null,
-  { FETCHING_SMURFS_START, FETCHING_SMURFS_SUCCESS }
+  mapStateToProps,
+  { getSmurfs }
 )(Smurfs);

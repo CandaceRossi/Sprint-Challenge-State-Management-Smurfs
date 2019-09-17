@@ -17,9 +17,14 @@ const App = ({ state }) => {
 
 const mapStateToProps = state => {
   return {
-    name: state.name,
-    age: state.age,
-    height: state.height
+    smurfs: [
+      {
+        name: state.name,
+        age: state.age,
+        height: state.height,
+        id: state.id
+      }
+    ]
   };
 };
 export default connect(
