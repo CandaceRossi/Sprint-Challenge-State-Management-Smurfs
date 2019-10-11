@@ -7,14 +7,20 @@ const SmurfForm = props => {
   const [age, setAge] = useState("");
   const [height, setHeight] = useState("");
 
+  // const addSmurf = item => dispatch({ type: ADD_FEATURE, payload: item });
+
   const handleChanges = event => {
     setName(event.target.value);
+    setAge(event.target.value);
+    setHeight(event.target.value);
   };
 
   const handleSubmit = event => {
     event.preventDefault();
-    // props.addFeatureAC();
-    // setInput("");
+    // props.addFeatureAC(handleChanges);
+    setName("");
+    setAge("");
+    setHeight("");
   };
 
   return (
@@ -41,7 +47,7 @@ const SmurfForm = props => {
           value={height}
           onChange={e => setHeight(e.target.value)}
         />
-        <button onClick={() => props.addFeatureAC(handleSubmit)}>
+        <button onClick={() => props.addFeatureAC(handleChanges)}>
           Add Smurf
         </button>
         {props.name} {props.age} {props.height}
@@ -50,7 +56,15 @@ const SmurfForm = props => {
   );
 };
 
+const mapStateToProps = state => {
+  return {
+    smurfs: state.smurfs,
+    addingSmurf: state.addingSmurf,
+    isFetching: state.isFetching,
+    error: state.error
+  };
+};
 export default connect(
-  null,
+  mapStateToProps,
   { addFeatureAC }
 )(SmurfForm);

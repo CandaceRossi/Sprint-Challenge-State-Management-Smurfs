@@ -2,21 +2,25 @@ import {
   FETCHING_SMURFS_START,
   FETCHING_SMURFS_SUCCESS,
   FETCHING_SMURFS_FAILURE,
-  ADD_FEATURE
-} from "../store/actions";
+  ADD_FEATURE,
+  ADD_FEATURE_SUCCESS,
+  ADD_FEATURE_FAILURE
+} from "./actions";
 
 export const initialState = {
   smurfs: [],
+  addingSmurf: false,
   isFetching: false,
   error: null
 };
 export const reducer = (state = initialState, action) => {
-  console.log(action);
   switch (action.type) {
     case FETCHING_SMURFS_START:
+      console.log(action.payload);
       return {
         ...state,
-        isFetching: true
+        isFetching: true,
+        error: null
       };
 
     case FETCHING_SMURFS_SUCCESS:
@@ -35,7 +39,27 @@ export const reducer = (state = initialState, action) => {
 
     case ADD_FEATURE:
       return {
-        ...state
+        ...state,
+        isFetching: false,
+        addingSmurf: true,
+        error: null,
+        smurfs: []
+      };
+    case ADD_FEATURE_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        addingSmurf: state.addingSmurf.concat(action.payload),
+        smurfs: [],
+        error: null
+      };
+    case ADD_FEATURE_FAILURE:
+      return {
+        ...state,
+        smurfs: [],
+        isFetching: false,
+        addingSmurf: false,
+        error: action.payload
       };
 
     default:

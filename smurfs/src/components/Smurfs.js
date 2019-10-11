@@ -6,10 +6,14 @@ import { getSmurfs } from "../store/actions";
 const Smurfs = props => {
   useEffect(() => {
     props.getSmurfs();
-  }, [props.getSmurfs]);
+  }, []);
   console.log("the smurfs are here", props.smurfs);
+  if (props.isFetching) {
+    return <h2>Fetching Smurf Stats!</h2>;
+  }
   return (
     <div className="Smurfs">
+      {props.error} <p>{props.error}</p>
       <h4>New Smurf Added:</h4>
       {props.smurfs.map(feature => {
         return (
@@ -27,7 +31,10 @@ const Smurfs = props => {
 };
 const mapStateToProps = state => {
   return {
-    smurfs: state.smurfs
+    smurfs: state.smurfs,
+    addingSmurf: state.addingSmurf,
+    isFetching: state.isFetching,
+    error: state.error
   };
 };
 export default connect(
