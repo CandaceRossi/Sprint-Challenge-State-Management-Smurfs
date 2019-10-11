@@ -49,8 +49,8 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         isFetching: false,
-        addingSmurf: state.addingSmurf.concat(action.payload),
-        smurfs: [],
+        addingSmurf: false,
+        smurfs: action.payload,
         error: null
       };
     case ADD_FEATURE_FAILURE:

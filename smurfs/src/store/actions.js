@@ -20,7 +20,6 @@ export const getSmurfs = () => dispatch => {
     });
 };
 
-//`${err.response.message} code: ${err.response.code}`
 export const ADD_FEATURE = "ADD_FEATURE";
 export const ADD_FEATURE_SUCCESS = "ADD_FEATURE_SUCCESS";
 export const ADD_FEATURE_FAILURE = "ADD_FEATURE_FAILURE";
@@ -31,7 +30,7 @@ export const addFeatureAC = smurf => dispatch => {
     .post("http://localhost:3333/smurfs", smurf)
     .then(res => {
       console.log("action add smurf", res);
-      return dispatch({ type: ADD_FEATURE_SUCCESS, payload: res });
+      return dispatch({ type: ADD_FEATURE_SUCCESS, payload: res.data });
     })
     .catch(err => {
       return dispatch({

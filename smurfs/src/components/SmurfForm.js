@@ -1,13 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { addFeatureAC } from "../store/actions";
 import { connect } from "react-redux";
+// import { initalState, reducer } from "../store/reducers";
 
 const SmurfForm = props => {
   const [name, setName] = useState("");
   const [age, setAge] = useState("");
   const [height, setHeight] = useState("");
 
-  // const addSmurf = item => dispatch({ type: ADD_FEATURE, payload: item });
+  useEffect(() => {
+    props.addFeatureAC();
+  }, []);
 
   const handleChanges = event => {
     setName(event.target.value);
@@ -17,16 +20,14 @@ const SmurfForm = props => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    // props.addFeatureAC(handleChanges);
-    setName("");
-    setAge("");
-    setHeight("");
+    props.addFeatureAC(handleChanges);
   };
 
   return (
     <div>
       <form onSubmit={handleSubmit}>
         <input
+          id="name"
           type="text"
           placeholder="Smurf Name"
           name="SmurfName"
@@ -34,6 +35,7 @@ const SmurfForm = props => {
           onChange={e => setName(e.target.value)}
         />
         <input
+          id="age"
           type="text"
           placeholder="Smurf Age"
           name="SmurfAge"
@@ -41,15 +43,14 @@ const SmurfForm = props => {
           onChange={e => setAge(e.target.value)}
         />
         <input
+          id="height"
           type="text"
           placeholder="Smurf Height"
           name="SmurfHeight"
           value={height}
           onChange={e => setHeight(e.target.value)}
         />
-        <button onClick={() => props.addFeatureAC(handleChanges)}>
-          Add Smurf
-        </button>
+        <button>Add Smurf</button>
         {props.name} {props.age} {props.height}
       </form>
     </div>

@@ -8,8 +8,8 @@ const App = ({ state }) => {
   return (
     <div className="App">
       <h1>SMURFS! 2.0 W/ Redux</h1>
-      <SmurfForm state={state} />
-      <Smurfs state={state} />
+      <SmurfForm />
+      <Smurfs />
     </div>
   );
 };
@@ -26,3 +26,4 @@ export default connect(
   mapStateToProps,
   {}
 )(App);
+// export default App;

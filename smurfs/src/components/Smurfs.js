@@ -13,7 +13,7 @@ const Smurfs = props => {
   }
   return (
     <div className="Smurfs">
-      {props.error} <p>{props.error}</p>
+      {/* {props.error} <p>{props.error}</p> */}
       <h4>New Smurf Added:</h4>
       {props.smurfs.map(feature => {
         return (
