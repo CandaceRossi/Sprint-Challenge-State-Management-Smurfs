@@ -8,21 +8,22 @@ const App = ({ state }) => {
   return (
     <div className="App">
       <h1>SMURFS! 2.0 W/ Redux</h1>
-      <div>Welcome to your state management version of Smurfs!</div>
-      <SmurfForm state={state} />
-      <Smurfs state={state} />
+      <SmurfForm />
+      <Smurfs />
     </div>
   );
 };
 
 const mapStateToProps = state => {
   return {
-    name: state.name,
-    age: state.age,
-    height: state.height
+    smurfs: state.smurfs,
+    addingSmurf: state.addingSmurf,
+    isFetching: state.isFetching,
+    error: state.error
   };
 };
 export default connect(
   mapStateToProps,
   {}
 )(App);
+// export default App;

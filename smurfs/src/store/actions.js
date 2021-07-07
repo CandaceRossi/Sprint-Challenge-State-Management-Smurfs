@@ -1,25 +1,41 @@
 import axios from "axios";
-import { dispatch } from "react-redux";
+
 export const FETCHING_SMURFS_START = "FETCHING_SMURFS_START";
 export const FETCHING_SMURFS_SUCCESS = "FETCHING_SMURFS_SUCCESS";
 export const FETCHING_SMURFS_FAILURE = "FETCHING_SMURFS_FAILURE";
-export const ADD_FEATURE = "ADD_FEATURE";
 
-export const getSmurfs = state => dispatch => {
+export const getSmurfs = () => dispatch => {
   dispatch({ type: FETCHING_SMURFS_START });
   axios
     .get("http://localhost:3333/smurfs")
     .then(res => {
-      console.log("see this response", res);
-      dispatch({ type: FETCHING_SMURFS_SUCCESS, payload: res });
+      console.log("action res", res);
+      dispatch({ type: FETCHING_SMURFS_SUCCESS, payload: res.data });
     })
     .catch(err => {
       dispatch({
         type: FETCHING_SMURFS_FAILURE,
-        payload: `${err.response.message} code: ${err.response.code}`
+        payload: err.response
       });
     });
 };
-export const addFeatureAC = feature => {
-  return { type: ADD_FEATURE, payload: feature };
+
+export const ADD_FEATURE = "ADD_FEATURE";
+export const ADD_FEATURE_SUCCESS = "ADD_FEATURE_SUCCESS";
+export const ADD_FEATURE_FAILURE = "ADD_FEATURE_FAILURE";
+
+export const addFeatureAC = smurf => dispatch => {
+  dispatch({ type: ADD_FEATURE });
+  axios
+    .post("http://localhost:3333/smurfs", smurf)
+    .then(res => {
+      console.log("action add smurf", res);
+      return dispatch({ type: ADD_FEATURE_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      return dispatch({
+        type: ADD_FEATURE_FAILURE,
+        payload: err.response
+      });
+    });
 };

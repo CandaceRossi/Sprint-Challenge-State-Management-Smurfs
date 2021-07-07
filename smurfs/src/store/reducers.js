@@ -2,67 +2,64 @@ import {
   FETCHING_SMURFS_START,
   FETCHING_SMURFS_SUCCESS,
   FETCHING_SMURFS_FAILURE,
-  ADD_FEATURE
-} from "../store/actions";
+  ADD_FEATURE,
+  ADD_FEATURE_SUCCESS,
+  ADD_FEATURE_FAILURE
+} from "./actions";
 
 export const initialState = {
-  smurfs: [
-    {
-      name: "Brainey",
-      age: 200,
-      height: "5cm",
-      id: 0
-    }
-  ]
+  smurfs: [],
+  addingSmurf: false,
+  isFetching: false,
+  error: null
 };
 export const reducer = (state = initialState, action) => {
-  console.log(action);
   switch (action.type) {
     case FETCHING_SMURFS_START:
+      console.log(action.payload);
       return {
         ...state,
-        smurfs: [
-          {
-            name: action.payload.name,
-            age: action.payload.age,
-            height: action.payload.height,
-            id: action.payload.id
-          }
-        ]
+        isFetching: true,
+        error: null
       };
 
     case FETCHING_SMURFS_SUCCESS:
       return {
         ...state,
         isFetching: false,
-        error: "",
-        smurfs: [
-          {
-            name: action.payload,
-            age: action.payload,
-            height: action.payload,
-            id: action.payload
-          }
-        ]
+        error: null,
+        smurfs: action.payload
       };
     case FETCHING_SMURFS_FAILURE:
       return {
         ...state,
         isFetching: false,
-        error: ""
+        error: action.payload
       };
 
     case ADD_FEATURE:
       return {
         ...state,
-        smurfs: [
-          {
-            name: action.payload,
-            age: action.payload,
-            height: action.payload,
-            id: action.payload
-          }
-        ]
+        isFetching: false,
+        addingSmurf: true,
+        error: null,
+        smurfs: []
+      };
+    case ADD_FEATURE_SUCCESS:
+      return {
+        ...state,
+        isFetching: false,
+        addingSmurf: false,
+        smurfs: action.payload,
+        error: null
+      };
+    case ADD_FEATURE_FAILURE:
+      return {
+        ...state,
+        smurfs: [],
+        isFetching: false,
+        addingSmurf: false,
+        error: action.payload
       };
 
     default:
